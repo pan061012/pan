@@ -18,7 +18,7 @@ def generate_password(length, char_pool):
     """生成指定长度的随机密码，字符不重复"""
     max_length = len(char_pool)
     if length > max_length:
-        print(f"⚠️ 密码长度超过可选字符数量，已自动调整为字符池最大长度 {max_length}")
+        print(f"密码长度超过可选字符数量，已自动调整为字符池最大长度")
         length = max_length
     return ''.join(random.sample(char_pool, length))
 
@@ -27,10 +27,11 @@ def get_valid_length():
     """获取并验证用户输入的密码长度"""
     while True:
         user_input = input("请输入想要生成的密码长度：")
-        if not user_input.isdigit():
+        try:
+            length = int(user_input)
+        except ValueError:
             print("❌ 请输入有效的正整数！")
             continue
-        length = int(user_input)
         if length <= 0:
             print("❌ 密码长度必须为正整数，请重新输入！")
             continue
